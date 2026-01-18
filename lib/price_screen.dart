@@ -6,10 +6,17 @@ class PriceScreen extends StatefulWidget {
   const PriceScreen({super.key});
 
   @override
-  _PriceScreenState createState() => _PriceScreenState();
+  PriceScreenState createState() => PriceScreenState();
 }
 
-class _PriceScreenState extends State<PriceScreen> {
+class PriceScreenState extends State<PriceScreen> {
+  @override
+  void initState() {
+    super.initState();
+    coinData.getBitcoinRate();
+  }
+
+  CoinData coinData = CoinData();
   String selectedCurrency = currenciesList[currenciesList.length - 2];
   DropdownButton getAndroidDropdown() {
     List<DropdownMenuItem> dropdownItems = [];
@@ -30,6 +37,7 @@ class _PriceScreenState extends State<PriceScreen> {
       },
     );
   }
+
   int selectedIndex = currenciesList.length - 2;
   CupertinoPicker iOSPicker() {
     List<Text> pickerItems = [];

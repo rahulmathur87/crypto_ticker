@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 const List<String> currenciesList = [
   'AUD',
   'BRL',
@@ -19,13 +22,22 @@ const List<String> currenciesList = [
   'SEK',
   'SGD',
   'USD',
-  'ZAR'
+  'ZAR',
 ];
 
-const List<String> cryptoList = [
-  'BTC',
-  'ETH',
-  'LTC',
-];
+const List<String> cryptoList = ['BTC', 'ETH', 'LTC'];
 
-class CoinData {}
+class CoinData {
+  Future<void> getBitcoinRate() async {
+    final url = Uri.parse(
+      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd',
+    );
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      print(data['bitcoin']['usd']);
+    } else {
+      print('Error: ${response.statusCode}');
+    }
+  }
+}
