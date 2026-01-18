@@ -28,16 +28,17 @@ const List<String> currenciesList = [
 const List<String> cryptoList = ['BTC', 'ETH', 'LTC'];
 
 class CoinData {
-  Future<void> getBitcoinRate() async {
+  Future<double> getBitcoinRate() async {
     final url = Uri.parse(
       'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd',
     );
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      print(data['bitcoin']['usd']);
+      return data['bitcoin']['usd'];
     } else {
       print('Error: ${response.statusCode}');
+      return 0.0;
     }
   }
 }
