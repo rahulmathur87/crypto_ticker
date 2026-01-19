@@ -20,8 +20,7 @@ class PriceScreenState extends State<PriceScreen> {
   CoinData coinData = CoinData();
   Future<void> loadRate() async {
     bitcoinPrice = await coinData.getBitcoinRate(selectedCurrency);
-    setState(() {
-    });
+    setState(() {});
   }
 
   String selectedCurrency = currenciesList[currenciesList.length - 2];
@@ -38,9 +37,7 @@ class PriceScreenState extends State<PriceScreen> {
       value: selectedCurrency,
       items: dropdownItems,
       onChanged: (value) {
-        setState(() {
-          selectedCurrency = value;
-        });
+        selectedCurrency = value;
         loadRate();
       },
     );
@@ -70,7 +67,7 @@ class PriceScreenState extends State<PriceScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('🤑 Coin Ticker')),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Padding(
@@ -91,6 +88,43 @@ class PriceScreenState extends State<PriceScreen> {
               ),
             ),
           ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+            child: Card(
+              color: Colors.lightBlueAccent,
+              elevation: 5.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
+                child: Text(
+                  '1 ETH = ? $selectedCurrency',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+            child: Card(
+              color: Colors.lightBlueAccent,
+              elevation: 5.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
+                child: Text(
+                  '1 LTC = ? $selectedCurrency',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+          Spacer(),
           Container(
             height: 150.0,
             alignment: Alignment.center,
