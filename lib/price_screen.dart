@@ -12,6 +12,7 @@ class PriceScreen extends StatefulWidget {
 class PriceScreenState extends State<PriceScreen> {
   double? bitcoinPrice;
   double? ethereumPrice;
+  double? liteCoinPrice;
   @override
   void initState() {
     super.initState();
@@ -22,9 +23,11 @@ class PriceScreenState extends State<PriceScreen> {
   Future<void> loadRate() async {
     var currentBitcoinPrice = await coinData.getBitcoinRate(selectedCurrency);
     var currentEthereumPrice = await coinData.getETHRate(selectedCurrency);
+    var currentLiteCoinPrice = await coinData.getLTCRate(selectedCurrency);
     setState(() {
       bitcoinPrice = currentBitcoinPrice;
       ethereumPrice = currentEthereumPrice;
+      liteCoinPrice = currentLiteCoinPrice;
     });
   }
 
@@ -124,7 +127,7 @@ class PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 LTC = ? $selectedCurrency',
+                  '1 LTC = ${liteCoinPrice == null ? '?' : liteCoinPrice.toString()} $selectedCurrency',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20.0, color: Colors.white),
                 ),
