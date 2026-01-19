@@ -18,9 +18,12 @@ class PriceScreenState extends State<PriceScreen> {
   }
 
   CoinData coinData = CoinData();
-  Future<void> loadRate () async {
-    bitcoinPrice = await coinData.getBitcoinRate();
+  Future<void> loadRate() async {
+    bitcoinPrice = await coinData.getBitcoinRate(selectedCurrency);
+    setState(() {
+    });
   }
+
   String selectedCurrency = currenciesList[currenciesList.length - 2];
   DropdownButton getAndroidDropdown() {
     List<DropdownMenuItem> dropdownItems = [];
@@ -38,6 +41,7 @@ class PriceScreenState extends State<PriceScreen> {
         setState(() {
           selectedCurrency = value;
         });
+        loadRate();
       },
     );
   }
@@ -80,7 +84,7 @@ class PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 BTC = ${bitcoinPrice == null? '?': bitcoinPrice.toString()} USD',
+                  '1 BTC = ${bitcoinPrice == null ? '?' : bitcoinPrice.toString()} $selectedCurrency',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20.0, color: Colors.white),
                 ),
