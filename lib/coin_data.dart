@@ -41,4 +41,18 @@ class CoinData {
       return 0.0;
     }
   }
+
+  Future<double> getETHRate(String currency) async {
+    final url = Uri.parse(
+      'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=${currency.toLowerCase()}',
+    );
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['ethereum'][currency.toLowerCase()];
+    } else {
+      print('Error: ${response.statusCode}');
+      return 0.0;
+    }
+  }
 }
